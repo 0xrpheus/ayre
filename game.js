@@ -1440,9 +1440,13 @@ export var Game = /*#__PURE__*/ (function () {
 							})
 							.map(function (param) {
 								var _p = _sliced_to_array(param, 2);
-								return drumManager.getFingerToDrumMap()[_p[0]];
+								return (
+									drumManager.getFingerToDrumMap()[_p[0]] ||
+									"none"
+								);
 							})
 							.join(", ");
+
 						var drumLabel = this._createTextSprite(
 							"Drums: ".concat(activeDrums || "None"),
 							{
