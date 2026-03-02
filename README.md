@@ -28,7 +28,7 @@ Both hands are tracked in real time via your webcam. No touching required.
 The backend handles AI synthesizer preset generation.
 
 ```bash
-cd epidaurus
+cd ayre
 npm install
 # Create a .env file and add your GEMINI_API_KEY
 npm run server
