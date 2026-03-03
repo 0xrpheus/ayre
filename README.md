@@ -2,7 +2,7 @@
 
 While discussing the joy instrumental music brings to people, our team realized that learning and playing instruments isn't equally accessible to everyone. Traditional lessons and instruments can be expensive, and many digital music tools assume the user can physically interact with a keyboard, mouse, or instrument in conventional ways.
 
-The word "Ayre" originates from the Renaissance era and refers to a genre of solo songs, which perfectly encompasses the user's experience with our product.
+The word "Ayre" originates from the Renaissance era and refers to a genre of solo performed songs, which perfectly encompasses the user's experience with our product.
 
 For QuackHacks 2026, we specifically built this project for the **Accessibility track**: traditional music creation is locked behind expensive gear and years of practice. Ayre removes both barriers. It runs in a browser or as a desktop app, requires no installation beyond a webcam, and includes features specifically designed for users with motor impairments.
 
