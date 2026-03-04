@@ -277,6 +277,22 @@ import * as drumManager from "./DrumManager.js";
 import { WaveformVisualizer } from "./WaveformVisualizer.js";
 import { VoiceManager } from "./VoiceManager.js";
 
+// --- FIX (issue #4): GPU delegate fallback ---
+// Attempts to create a HandLandmarker with GPU delegate first.
+// If that fails (unsupported hardware, VM, certain Linux configs),
+// retries transparently with CPU delegate so the app remains functional.
+async function createLandmarker(vision, options) {
+	try {
+		return await HandLandmarker.createFromOptions(vision, options);
+	} catch (gpuErr) {
+		console.warn("GPU delegate failed, falling back to CPU:", gpuErr);
+		return await HandLandmarker.createFromOptions(vision, {
+			...options,
+			baseOptions: { ...options.baseOptions, delegate: "CPU" },
+		});
+	}
+}
+
 export var Game = /*#__PURE__*/ (function () {
 	"use strict";
 	function Game(renderDiv) {
@@ -599,9 +615,12 @@ export var Game = /*#__PURE__*/ (function () {
 								];
 							case 1:
 								vision = _state.sent();
+								// FIX (issue #4): use createLandmarker() instead of
+								// HandLandmarker.createFromOptions() directly so that GPU
+								// delegate failures are caught and retried with CPU.
 								return [
 									4,
-									HandLandmarker.createFromOptions(vision, {
+									createLandmarker(vision, {
 										baseOptions: {
 											modelAssetPath:
 												"https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
