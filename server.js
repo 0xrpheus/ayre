@@ -16,8 +16,10 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 app.post('/api/generate-synth', async (req, res) => {
     try {
-        const { vibe } = req.body;
-
+        const vibe = req.body.vibe?.slice(0, 200).replace(/[`"\\]/g, '') ?? '';
+        if (!vibe) return res.status(400).json({ error: 'vibe required' });
+        const blocked = /ignore|instructions|system prompt|prompt|override|forget|pretend|you are|act as/i;
+        if (blocked.test(vibe)) return res.status(400).json({ error: 'invalid vibe' });
         // Use the fast flash model
         const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
